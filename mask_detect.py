@@ -1,15 +1,20 @@
 import cv2 as cv
 import numpy as np
+import matplotlib.pyplot as plt
+from tensorflow import keras
+
+
+
+
+
 
 camera = cv.VideoCapture(0)
 
 # Dimensions
-# camera.set(3, 640)
-# camera.set(4, 480)
-
 camera.set(3, 1280)
 camera.set(4, 720)
 
+# Haar Cascades
 full_face_cascade = cv.CascadeClassifier('haar_cascades/full_face_cascade.xml')
 profile_face_cascade = cv.CascadeClassifier('haar_cascades/profile_face_cascade.xml')
 
@@ -40,6 +45,7 @@ while True:
 
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
+    # Detecting and drawing rectangles
     rectangles, rect_color = detect(frame, full_face_cascade, profile_face_cascade)
     draw_rects(frame, rectangles, rect_color)
     cv.imshow('Detect', frame)
