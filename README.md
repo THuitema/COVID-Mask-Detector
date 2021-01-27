@@ -12,3 +12,4 @@ Face masks have been an important factor in limiting the spread of COVID-19. How
 ## Future Goals
 - Detect if face masks are worn incorrectly (i.e. mask below nose, above chin, etc.)
 - Detect mask-wearing from different angles (currently can only detect if face is pointed directly at camera)
+- Create an app to view the camera feed and receive alerts
