@@ -13,7 +13,7 @@ profile_face_cascade = cv.CascadeClassifier('haar_cascades/profile_face_cascade.
 
 def detect(img, cascade1, cascade2):
     full_face_rectangles = cascade1.detectMultiScale(img, scaleFactor=1.1, minNeighbors=6, minSize=(100, 100))
-    profile_face_rectangles = cascade1.detectMultiScale(img, scaleFactor=1.1, minNeighbors=6, minSize=(100, 100))
+    profile_face_rectangles = cascade2.detectMultiScale(img, scaleFactor=1.1, minNeighbors=6, minSize=(100, 100))
 
     # if it detects a full face
     if len(full_face_rectangles) > 0:

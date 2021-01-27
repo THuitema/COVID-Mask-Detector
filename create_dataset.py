@@ -4,11 +4,10 @@ import cv2 as cv
 import random
 import pickle
 import matplotlib.pyplot as plt
+from config import IMG_SIZE
 
 DATA_DIR = 'dataset'
 CATEGORIES = ['with_mask', 'without_mask']
-IMG_SIZE = 100 # training really slows when putting this over 100
-face_cascade = cv.CascadeClassifier('haar_cascades/full_face_cascade.xml')
 
 training_data = []
 
@@ -43,6 +42,7 @@ for features, label in training_data:
     x.append(features)
     y.append(label)
 
+
 # Converting to numpy format
 x = np.array(x).reshape(-1, IMG_SIZE, IMG_SIZE, 1) # adding grayscale channel at the end
 x = x.astype('float32') # converting from uint8
@@ -52,11 +52,11 @@ y = np.array(y)
 x /= 255
 
 # Saving dataset
-pickle_out = open('x.pickle', 'wb')
+pickle_out = open('x2.pickle', 'wb')
 pickle.dump(x, pickle_out)
 pickle_out.close()
 
-pickle_out = open('y.pickle', 'wb')
+pickle_out = open('y2.pickle', 'wb')
 pickle.dump(y, pickle_out)
 pickle_out.close()
 

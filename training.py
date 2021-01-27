@@ -7,12 +7,11 @@ import kerastuner
 from kerastuner.tuners import RandomSearch
 import pickle
 import matplotlib.pyplot as plt
+from config import IMG_SIZE
 
 
 # highest test accuracy: 99.39% (811/816 test images predicted correctly)
 
-
-IMAGE_SIZE = 100
 
 # Loading in data
 pickle_in_x = open('x.pickle', 'rb')
@@ -25,7 +24,7 @@ train_images, test_images, train_labels, test_labels = sklearn.model_selection.t
 
 
 model = keras.Sequential([
-    keras.layers.AveragePooling2D(6, 3, input_shape=(IMAGE_SIZE,IMAGE_SIZE,1)), # reads a 6x6 square instead of every pixel
+    keras.layers.AveragePooling2D(6, 3, input_shape=(IMG_SIZE, IMG_SIZE, 1)), # reads a 6x6 square instead of every pixel
 
     keras.layers.Conv2D(128, 3, activation='relu'), # 300x300x1 color channel (grayscale)
     keras.layers.Dropout(0.4),
@@ -63,31 +62,32 @@ model.save('./my_model')
 # num_wrong = 0
 # # finds wrong images and displays them
 # for x in range(len(predictions)):
-#     image = test_images[x].reshape(IMAGE_SIZE,IMAGE_SIZE)
+#     image = test_images[x].reshape(IMG_SIZE, IMG_SIZE)
 #
 #     if round(predictions[x][0]) == 1:
-#         plt.imshow(image, cmap='Greys_r')
-#         plt.title(predictions[x])
-#         plt.title('No Mask')
+#         # plt.imshow(image, cmap='Greys_r')
+#         # plt.title(predictions[x])
+#         # plt.title('No Mask')
 #         if round(predictions[x][1]) != test_labels[x]:
+#             print(predictions[x])
 #             plt.imshow(image, cmap='Greys_r')
 #             plt.title('Predicted: No Mask, Actual: Mask')
 #             num_wrong += 1
-#             print(predictions[x])
 #     elif round(predictions[x][1]) == 1:
-#         plt.imshow(image, cmap='Greys_r')
-#         plt.title(predictions[x])
-#         plt.title('Mask')
+#         # plt.imshow(image, cmap='Greys_r')
+#         # plt.title(predictions[x])
+#         # plt.title('Mask')
 #         if round(predictions[x][1]) != test_labels[x]:
+#             print(predictions[x])
 #             plt.imshow(image, cmap='Greys_r')
 #             plt.title('Predicted: Mask, Actual: No Mask')
 #             num_wrong += 1
-#             print(predictions[x])
 #     plt.show()
 #
 #
 # print('Correct: ' + str(len(test_labels) - num_wrong) + '/' + str(len(test_labels)))
-
+#
+#
 
 
 
