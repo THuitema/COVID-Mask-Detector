@@ -14,7 +14,6 @@ loaded_model = keras.models.load_model('./my_model')
 full_face_cascade = cv.CascadeClassifier('haar_cascades/full_face_cascade.xml')
 profile_face_cascade = cv.CascadeClassifier('haar_cascades/profile_face_cascade.xml')
 
-image_list = []
 
 def detect(img, cascade1, cascade2):
     full_face_rectangles = cascade1.detectMultiScale(img, scaleFactor=1.1, minNeighbors=4)

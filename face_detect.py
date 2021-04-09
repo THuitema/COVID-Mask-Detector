@@ -4,16 +4,19 @@ import numpy as np
 camera = cv.VideoCapture(0)
 
 # Dimensions
-camera.set(3, 1280)
-camera.set(4, 720)
+camera.set(3, 160)
+camera.set(4, 120)
 
 # Haar Cascades
+#full_face_cascade = cv.CascadeClassifier('haar_cascades/full_face_cascade.xml')
 full_face_cascade = cv.CascadeClassifier('haar_cascades/full_face_cascade.xml')
-profile_face_cascade = cv.CascadeClassifier('haar_cascades/profile_face_cascade.xml')
+profile_face_cascade = cv.CascadeClassifier('haar_cascades/profile_face_2_cascade.xml')
+head_shoulders_cascade = cv.CascadeClassifier('haar_cascades/head_shoulders_cascade.xml')
+eye_cascade = cv.CascadeClassifier('haar_cascades/eyes_glasses_cascade.xml')
 
 def detect(img, cascade1, cascade2):
-    full_face_rectangles = cascade1.detectMultiScale(img, scaleFactor=1.1, minNeighbors=6, minSize=(100, 100))
-    profile_face_rectangles = cascade2.detectMultiScale(img, scaleFactor=1.1, minNeighbors=6, minSize=(100, 100))
+    full_face_rectangles = cascade1.detectMultiScale(img, scaleFactor=1.1, minNeighbors=6, minSize=(10, 10))
+    profile_face_rectangles = cascade2.detectMultiScale(img, scaleFactor=1.1, minNeighbors=6, minSize=(10, 10))
 
     # if it detects a full face
     if len(full_face_rectangles) > 0:
@@ -34,13 +37,14 @@ def draw_rects(img, rects, color):
         cv.rectangle(img, (x, y), (x + w, y + 20), color, thickness=-1)
         cv.putText(img, 'Face', (x, y + 16), cv.FONT_HERSHEY_SIMPLEX, 0.6, (255,255,255), thickness=2)
 
+
 while True:
     ret, frame = camera.read()
 
     gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
 
     # Detecting and drawing rectangles
-    rectangles, rect_color = detect(frame, full_face_cascade, profile_face_cascade)
+    rectangles, rect_color = detect(frame, eye_cascade, profile_face_cascade)
     draw_rects(frame, rectangles, rect_color)
     cv.imshow('Detect', frame)
 
